@@ -1,6 +1,6 @@
 # calil-openapi
 
-[カーリル図書館API](https://calil.jp/doc/api.html)の非公式OpenAPI定義を作成。
+[カーリル図書館API](https://calil.jp/doc/api.html)の非公式OpenAPI定義
 
 ## Reference
 
