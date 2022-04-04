@@ -6,8 +6,11 @@ info:
     email: contact@calil.jp
   title: Calil Library API
   version: '1.0'
-  description: 'https://calil.jp/doc/api_ref.html'
-  summary: カーリル図書館API
+  description: |-
+    [図書館API仕様書](https://calil.jp/doc/api_ref.html)をもとにOpenAPI定義を作成。
+
+    `appkey`は[こちら](https://calil.jp/api/dashboard/)から登録後に取得できる。
+  summary: カーリル図書館API仕様書
 servers:
   - url: 'https://api.calil.jp'
 paths:
