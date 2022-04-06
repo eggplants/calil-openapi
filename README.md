@@ -6,7 +6,7 @@
 
 図書館API仕様書: <https://calil.jp/doc/api_ref.html>
 
-## Unofficial Documentation (using [Stoplight](https://eggplants.stoplight.io/docs/calil-openapi))
+## Unofficial Documentation (using [Stoplight](https://stoplight.io))
 
 <https://eggplants.stoplight.io/docs/calil-openapi>
 
