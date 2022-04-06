@@ -2,11 +2,18 @@
 
 [カーリル図書館API](https://calil.jp/doc/api.html)の非公式OpenAPI定義
 
-## Reference
+## Original Documentation
 
-[図書館API仕様書](https://calil.jp/doc/api_ref.html)
+図書館API仕様書: <https://calil.jp/doc/api_ref.html>
 
-## Endpoints
+## Unofficial Documentation (using [Stoplight](https://eggplants.stoplight.io/docs/calil-openapi))
 
-- https://api.calil.jp/library
-- https://api.calil.jp/check
+<https://eggplants.stoplight.io/docs/calil-openapi>
+
+## Mock Server
+
+<https://stoplight.io/mocks/eggplants/calil-openapi/50052013>
+
+## License
+
+Unlisenced
