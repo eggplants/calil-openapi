@@ -4,20 +4,26 @@ info:
     name: カーリルサポートデスク
     url: 'https://calil.jp/doc/contact.html'
     email: contact@calil.jp
-  title: Calil Library API
+  title: カーリル図書館API
   version: '1.0'
   description: |-
-    [図書館API仕様書](https://calil.jp/doc/api_ref.html)をもとにOpenAPI定義を作成。
+    注: 非公式
 
-    `appkey`は[こちら](https://calil.jp/api/dashboard/)から登録後に取得できる。
+    [図書館API仕様書](https://calil.jp/doc/api_ref.html)をもとにしたOpenAPI定義
+
+    `appkey`は[登録](https://calil.jp/api/dashboard/)が必要。
   summary: カーリル図書館API仕様書
+  license:
+    name: Unlicensed
+    url: 'https://github.com/eggplants/calil-openapi/blob/master/LICENSE'
+  termsOfService: 'https://calil.jp/privacy/'
 servers:
   - url: 'https://api.calil.jp'
 paths:
   /library:
     parameters: []
     get:
-      summary: 図書館データベース
+      summary: 図書館データベース v1 API
       tags: []
       responses:
         '200':
@@ -38,35 +44,35 @@ paths:
                       minLength: 1
                       pattern: ^\d+$
                       example: '106192'
-                      description: 図書館のユニークID
+                      description: カーリルが図書館ごとに付与するユニークID
                     formal:
                       type: string
                       minLength: 1
                       example: 東京女子大学図書館
-                      description: 正式名称
+                      description: 図書館の正式名称（通常はこの項目を図書館名として使用してください)
                     short:
                       type:
                         - string
                         - 'null'
                       minLength: 1
                       example: 図書館
-                      description: 略称
+                      description: 図書館の略称・該当しない場合はnullが入る
                     systemid:
                       type: string
                       minLength: 1
                       example: Univ_Twcu
                       pattern: '^[A-Z][A-Za-z]*\d*(_[A-Z]?[A-Za-z0-9]*)+$'
-                      description: システムID
+                      description: システムID（英数字）所蔵検索APIで検索先を特定するためのID
                     systemname:
                       type: string
                       minLength: 1
                       example: 東京女子大学
-                      description: システム名称
+                      description: システムの名称。一般的には自治体名や大学名など
                     libkey:
                       type: string
                       minLength: 1
                       example: 本館
-                      description: システム毎の図書館キー
+                      description: 連携先システムにおいて所蔵を識別するために用いられている文字列。所蔵検索APIと組み合わせ使います
                     category:
                       type: string
                       minLength: 1
@@ -78,13 +84,13 @@ paths:
                         - SPECIAL
                         - BM
                       example: UNIV
-                      description: カテゴリー
+                      description: 'カテゴリー (SMALL : 図書室・公⺠館, MEDIUM : 図書館（地域）, LARGE : 図書館（広域）— 都道府県立図書館や国会図書館, UNIV : 大学, SPECIAL : 専門, BM : 移動・BM)'
                     post:
                       type: string
                       minLength: 1
                       pattern: '^\d{3}-\d{4}$'
                       example: 167-8585
-                      description: 郵便番号
+                      description: 図書館の郵便番号
                     tel:
                       type:
                         - string
@@ -92,7 +98,7 @@ paths:
                       minLength: 1
                       example: 03-5382-6784
                       pattern: '^(\d{2}-\d{4}-\d{4}|\d{3}-\d{3}-\d{4}|\d{3}-\d{2}-\d{4}|\d{3}-\d{4}-\d{4}|\d{4}-\d{2}-\d{4}|\d{4}-\d{3}-\d{3}|\d{5}-\d{1}-\d{4})(\s+(\[[ぁ-んァ-ン一-龯ー]+\]|\(内線\d+([-,]\d+)?\)))*$'
-                      description: 電話番号
+                      description: 図書館の電話番号・該当しない場合はnullが入る
                     pref:
                       $ref: '#/components/schemas/pref'
                     city:
@@ -100,18 +106,18 @@ paths:
                       minLength: 1
                       pattern: '^[ぁ-んァ-ン一-龯ー]+[市区町村]$'
                       example: 杉並区
-                      description: 市町村
+                      description: 図書館が所在する市町村
                     address:
                       type: string
                       minLength: 1
                       example: 東京都杉並区善福寺2丁目6-1
-                      description: 住所
+                      description: 図書館の所在地（都道府県からすべて
                     geocode:
                       type: string
                       minLength: 1
                       example: '139.589455,35.710908'
                       pattern: '^\d+(\.\d+),\d+(\.\d+)$'
-                      description: 位置情報
+                      description: 緯度、経度のカンマ区切り
                     isil:
                       type:
                         - string
@@ -119,20 +125,20 @@ paths:
                       minLength: 1
                       example: JP-1003957
                       pattern: '^JP-\d{7}$'
-                      description: 図書館及び関連組織のための国際標準識別子
+                      description: 図書館のISIL(図書館及び関連組織のための国際標準識別子)・該当しない場合はnullが入る
                     faid:
                       type:
                         - string
                         - 'null'
                       example: FA006011
                       pattern: '^FA(\d{6}|\d{5}X)$'
-                      description: NACSIS-CATの参加組織ID(FA番号)
+                      description: 図書館のFAID(NACSIS-CATの参加組織ID)・該当しない場合はnullが入る
                     url_pc:
                       type: string
                       minLength: 1
                       format: uri
                       example: 'http://library.twcu.ac.jp/'
-                      description: PC版ウェブサイト
+                      description: 図書館のURL
                     distance:
                       type: string
                       description: パラメータで`geocode`が指定されている場合、その地点からの距離(単位：km)
@@ -173,11 +179,27 @@ paths:
                       url_pc: 'http://library.twcu.ac.jp/'
       operationId: search-libraries
       description: |-
-        指定した条件で図書館の一覧を取得します。緯度経度を指定した場合は、その地点から近い図書館を順に出力します。
+        指定した条件で図書館の一覧を取得します。
+
+        文字コードはUTF-8で統一されています。
+
+        絞り込みオプションがない場合は全件を返します。
+
+        緯度経度を指定した場合は、その地点から近い図書館を順に出力します。
 
         各アプリケーションキーにつき、IP毎に、1000リクエスト/時です。
 
         `pref`, `systemid`, `geocode`のいずれかは必ず指定する必要があります。
+
+        JSON形式(`?format=json&calback=`)の応答の場合には、CORSヘッダーが付与されます。
+
+        このAPIは2010年3月に運用開始されましたが、当時は、XMLやJSONPがブラウザからクロスドメインでAPIにアクセスするための標準的な手法でした。このため、歴史的にパラメータ省略時には古いデータ形式で応答するため注意が必要です。 XML形式とJSONP形式は互換性維持のために引き続きサポートされますが、新規に採用するべきではありません。
+
+        推奨: <https://api.calil.jp/library?format=json&callback=>
+
+        XML形式には、空のエレメント"image"が含まれます。このエレメントはサービス開始以降空の状態で存在していたため、互換性維持のために存在しています。今後このエレメントにデータを配信する予定はありません。
+
+        このAPIによって得られる情報はCC-0（パブリックドメイン）ライセンスで提供されます。
       parameters:
         - schema:
             type: string
@@ -185,35 +207,34 @@ paths:
             pattern: '^[a-z0-9]{32}$'
           in: query
           name: appkey
-          required: true
-          description: アプリケーションキーを指定します。
+          description: 事前に発行されたアプリケーションキー。図書館データベースAPIではこのパラメータは必須ではありません。
         - schema:
             $ref: '#/components/schemas/pref'
             example: 青森県
           in: query
           name: pref
-          description: 都道府県を指定します。
+          description: 都道府県による絞り込み。中間一致検索となります。
         - schema:
             type: string
             pattern: '^[ぁ-んァ-ン一-龯ー]+[市区町村]$'
-            example: 青森市
+            example: 中津川市
           in: query
           name: city
-          description: 市区町村を指定します。このパラメータは `pref` とセットで利用します。
+          description: 市町村による絞り込み。この項目は`pref`と同時に指定します。中間一致検索となります。
         - schema:
             type: string
-            example: Aomori_Pref
+            example: Gifu_nakatsugawa
             pattern: '^[A-Z][A-Za-z]*\d*(_[A-Z]?[A-Za-z0-9]*)+$'
           in: query
           name: systemid
-          description: 図書館のシステムIDを指定します。
+          description: システムIDによる絞り込み。この項目は単独で指定します。
         - schema:
             type: string
             pattern: '^\d+(\.\d+),\d+(\.\d+)$'
             example: '136.7163027,35.390516'
           in: query
           name: geocode
-          description: 緯度、経度を指定します。
+          description: 緯度、経度をカンマ区切りで指定します。この項目は単独で指定します。
         - schema:
             type: string
             enum:
@@ -223,19 +244,19 @@ paths:
             default: xml
           in: query
           name: format
-          description: 出力形式を指定します。
+          description: 出力形式を指定します。指定できるオプションは`xml`または`json`です。省略時は`xml`となります。不正な値を指定した場合は`json`となります。
         - schema:
             type: string
             example: callback
             default: callback
           in: query
           name: callback
-          description: JSONPのcallback関数名を指定します。JSONとして応答する場合はcallbackに空白を指定してください。
+          description: JSONPのcallback関数名を指定します。出力形式に`json`を指定した場合にあわせて指定できます。歴史的に省略時のデフォルトは`callback`に設定されており、JSONP形式として出力されます。単純なJSONデータで出力するためには`callback=`のようなパラメータを追加して空白を指定しなければなりません。
         - schema:
             type: integer
           in: query
           name: limit
-          description: 図書館の取得件数を指定します。
+          description: 図書館の取得件数を指定します。未指定の場合は該当した図書館を全件返します。ただし`geocode`パラメータを指定した場合にはパラメータ省略時に5件が自動設定されます。
   /check:
     get:
       summary: 蔵書検索
@@ -246,6 +267,7 @@ paths:
             蔵書情報の取得にかかる時間は、各図書館システムによって異なります。1秒以内のところもあれば、遅いシステムだと20秒以上かかるところもあります。 
 
             遅いシステムに対応するために、クライアントはcheckを何度かリクエスト（ポーリング）してすべての情報が取得できるまで待つ必要があります。
+
             `continue`が1で返ってきたときは、クライアントは戻り値の`session`をパラメータにして、再度checkをリクエストします。
             `appkey`と`session`は必須、`format`は任意(`xml`または`json`です。デフォルトは`json`)。
             例: `https://api.calil.jp/check?appkey=...&session=...&format=json`
@@ -346,7 +368,6 @@ paths:
             type: string
           in: query
           name: appkey
-          required: true
           description: アプリケーションキーを指定します。
         - schema:
             type: string
